@@ -1,0 +1,30 @@
+{
+  "name": "uniauth",
+  "version": "0.0.1",
+  "description": "",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "test": ""
+  },
+  "keywords": [
+    "oauth",
+    "oauth2",
+    "authentication",
+    "social-login",
+    "auth",
+    "typescript",
+    "nodejs",
+    "pkce",
+    "openid-connect",
+    "sdk"
+  ],
+  "author": "Debanjan",
+  "license": "MIT",
+  "packageManager": "pnpm@10.15.0",
+  "devDependencies": {
+    "tsup": "^8.5.1",
+    "typescript": "^6.0.3"
+  }
+}
