@@ -14,51 +14,144 @@
 
 ## ✨ What is Uniauth?
 
-`Uniauth` is an open-source authentication toolkit designed to simplify OAuth flows across multiple social providers.
+`Uniauth` is a TypeScript-first OAuth wrapper library for social login providers.
+It is built to provide a common provider interface so you can add more OAuth providers later with minimal integration work.
 
-Instead of rewriting OAuth logic for every platform:
+Currently implemented:
+
+- LinkedIn provider (implemented, not tested yet)
+
+Planned providers:
 
 - Google
-- LinkedIn
 - GitHub
 - Twitter/X
 - Facebook
 - Discord
 - Spotify
-- and more...
-
-`Uniauth` provides a unified developer experience for handling authentication flows consistently.
+- and more
 
 ---
 
-# 🚧 Current Status
+## 🚧 Current Status
 
-Early development stage.
+This project is in early development.
 
-Things will:
-- break
-- change
-- get renamed
-- probably annoy you
+- LinkedIn OAuth flow is implemented in code
+- Full testing is not completed yet
+- Additional providers are still pending
 
-Contributions, feedback, and issue reports are welcome.
+Use this library as a starting point and expect the API to evolve.
 
 ---
 
-# 🎯 Goals
-
-- Unified OAuth API
-- Minimal configuration
-- Framework agnostic
-- TypeScript-first
-- Extensible provider system
-- Secure token handling
-- Easy frontend integration
-- Developer-friendly DX
-
----
-
-# 📦 Installation
+## 📦 Installation
 
 ```bash
 npm install uniauth
+```
+
+or with pnpm:
+
+```bash
+pnpm add uniauth
+```
+
+---
+
+## 🚀 Usage
+
+```ts
+import Uniauth from 'uniauth'
+
+const auth = new Uniauth({
+  providers: {
+    Linkedin: {
+      clientId: '<YOUR_LINKEDIN_CLIENT_ID>',
+      clientSecret: '<YOUR_LINKEDIN_CLIENT_SECRET>',
+      redirecturl: 'https://yourapp.com/auth/linkedin/callback',
+      scope: ['r_liteprofile', 'r_emailaddress']
+    }
+  }
+})
+
+const linkedin = auth.getProvider('Linkedin')
+
+const authorizationUrl = linkedin.getAuthorizationUrl()
+// redirect user to authorizationUrl
+
+// after callback, exchange the authorization code:
+const token = await linkedin.exchangeCodeForToken(code)
+
+// fetch the LinkedIn user profile:
+const profile = await linkedin.getUserProfile(token.accessToken)
+```
+
+---
+
+## 🔧 Provider Configuration
+
+### LinkedIn
+
+The `Linkedin` provider accepts the following config:
+
+- `clientId`: LinkedIn app client ID
+- `clientSecret`: LinkedIn app client secret
+- `redirecturl`: OAuth callback redirect URI
+- `scope`: array of LinkedIn OAuth scopes
+
+Example:
+
+```ts
+{
+  clientId: 'abc123',
+  clientSecret: 'secret',
+  redirecturl: 'https://yourapp.com/auth/linkedin/callback',
+  scope: ['r_liteprofile', 'r_emailaddress']
+}
+```
+
+---
+
+## 🧠 API Notes
+
+- `Uniauth` currently exposes a default class from `src/providers/core/Uniauth`
+- `getProvider(providerName)` returns the provider instance for the requested provider name
+- `LinkedinProvider` includes:
+  - `getAuthorizationUrl()`
+  - `exchangeCodeForToken(code)`
+  - `getUserProfile(accessToken)`
+
+---
+
+## 📁 Library Structure
+
+- `src/index.ts` — library entrypoint
+- `src/providers/core/Uniauth.ts` — provider registry and configuration
+- `src/providers/linkedin/LinkedinProvider.ts` — LinkedIn OAuth implementation
+- `src/providers/linkedin/Linkedin.types.ts` — LinkedIn provider types
+- `src/providers/core/types/TokenResponse.types.ts` — token response shape
+- `src/providers/core/types/UserProfile.types.ts` — user profile shape
+- `src/pkce/*` — PKCE helper utilities
+
+---
+
+## 🛠️ Notes
+
+- No tests are included yet
+- LinkedIn provider is implemented but still needs real-world testing
+- More providers can be added by extending `src/providers/core/Uniauth.ts` and creating new provider classes
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome.
+
+If you want to add a provider, create a new provider class under `src/providers`, add its types, and register it in `src/providers/core/Uniauth.ts`.
+
+---
+
+## 📄 License
+
+MIT
