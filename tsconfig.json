@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "ignoreDeprecations": "6.0",
     "rootDir": "./src",
     "outDir": "./dist",
     "module": "nodenext",
@@ -18,7 +19,7 @@
     "skipLibCheck": true,
   },
   "include": [
-    ".src/*"
+    "src/*"
   ],
   "exclude": [
     "node_modules",
