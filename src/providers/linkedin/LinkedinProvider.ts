@@ -22,17 +22,17 @@ export class LinkedinProvider extends BaseProviderClass {
     }
     async exchangeCodeForToken(code: string): Promise<TokenResponse> {
         try {
-            const url = LinkedinConstants.AccessTokenUrl + new URLSearchParams({
+            const body = new URLSearchParams({
                 grant_type: 'authorization_code',
                 code: code,
                 redirect_uri: this.redirectUrl,
                 client_id: this.clientId,
                 client_secret: this.clientSecret,
-            })
+            }).toString()
 
             const { data } = await axios.post<{ access_token: string; expires_in: number; refresh_token?: string; scope?: string; token_type: string; id_token?: string }>(
-                url,
-                undefined,
+                LinkedinConstants.AccessTokenUrl,
+                body,
                 {
                     headers: {
                         "Content-Type": "application/x-www-form-urlencoded"
@@ -51,20 +51,24 @@ export class LinkedinProvider extends BaseProviderClass {
 
             return response
         } catch (error) {
-            console.log(error);
+            console.error("Token exchange error:", {
+                message: error instanceof Error ? error.message : String(error),
+                name: error instanceof Error ? error.name : undefined,
+                status: (error as any)?.response?.status
+            });
             throw new Error("Error occured exchanging code for the access token", { cause: error })
         }
     }
     getAuthorizationUrl(): string {
         const state: string = generateState()
-        const scope = this.scope.join("%20")
-        const url = LinkedinConstants.AuthUrl + new URLSearchParams({
+        const params = new URLSearchParams({
             response_type: "code",
             client_id: this.clientId,
-            redirect_ur: encodeURIComponent(this.redirectUrl),
+            redirect_uri: this.redirectUrl,
             state: state,
-            scope: scope
+            scope: this.scope.join(" ")
         })
+        const url = LinkedinConstants.AuthUrl + '?' + params.toString()
 
         return url
     }
