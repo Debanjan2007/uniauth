@@ -1,5 +1,5 @@
 ﻿import axios from 'axios'
-import { BaseProviderClass } from '../core/BaseClass'
+import { BaseProviderClass } from '../BaseClass'
 import { TokenResponse } from '../core/types/TokenResponse.types';
 import { UserProfile } from '../core/types/UserProfile.types';
 import { generateCodeVerifier as generateState } from '../../pkce/generateCodeVerifier'
