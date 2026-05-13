@@ -11,4 +11,11 @@ export class Uniauth {
             )
         }
     }
+    getProvider(providername: string){
+        const provider = this.providers.get(providername)
+        if(!provider){
+            return 'Wrong provider call'
+        }
+        return provider
+    }
 }
