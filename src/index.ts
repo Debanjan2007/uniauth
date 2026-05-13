@@ -1,1 +1,1 @@
-﻿
+﻿export * as default from './providers/core/Uniauth'
