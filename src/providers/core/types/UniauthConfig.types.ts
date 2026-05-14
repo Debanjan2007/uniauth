@@ -1,4 +1,4 @@
-﻿import type { LinkedinAuthParams } from '../../linkedin/Linkedin.types'
+﻿import type { LinkedinAuthParams } from '../../linkedin/Linkedin.types.js'
 
 export interface UniauthConfig {
     providers : {

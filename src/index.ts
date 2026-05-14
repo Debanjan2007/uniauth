@@ -1,1 +1,2 @@
-﻿export * as default from './providers/core/Uniauth'
+﻿export { Uniauth } from './providers/core/Uniauth.js'
+export { Uniauth as default } from './providers/core/Uniauth.js'

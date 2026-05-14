@@ -1,5 +1,5 @@
-﻿import type { TokenResponse } from "./types/TokenResponse.types";
-import type { UserProfile } from "./types/UserProfile.types";
+﻿import type { TokenResponse } from "./types/TokenResponse.types.js";
+import type { UserProfile } from "./types/UserProfile.types.js";
 
 export abstract class BaseProviderClass{
     abstract getAuthorizationUrl():string ;

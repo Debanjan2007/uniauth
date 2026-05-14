@@ -1,5 +1,5 @@
-﻿import { UniauthConfig } from './types/UniauthConfig.types'
-import { LinkedinProvider }  from '../linkedin/LinkedinProvider'
+﻿import { LinkedinProvider }  from '../linkedin/LinkedinProvider.js'
+import type { UniauthConfig } from './types/UniauthConfig.types.js'
 
 export class Uniauth {
     private providers = new Map<string, any>

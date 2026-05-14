@@ -1,10 +1,10 @@
 ﻿import axios from 'axios'
-import { BaseProviderClass } from '../BaseClass'
-import { TokenResponse } from '../core/types/TokenResponse.types';
-import { UserProfile } from '../core/types/UserProfile.types';
-import { generateCodeVerifier as generateState } from '../../pkce/generateCodeVerifier'
-import { LinkedinConstants } from './linkedin.constants'
-import type { LinkedinAuthParams } from './Linkedin.types'
+import { BaseProviderClass } from '../BaseClass.js'
+import { generateCodeVerifier as generateState } from '../../pkce/generateCodeVerifier.js'
+import { LinkedinConstants } from './linkedin.constants.js'
+import type { TokenResponse } from '../core/types/TokenResponse.types.js';
+import type { UserProfile } from '../core/types/UserProfile.types.js';
+import type { LinkedinAuthParams } from './Linkedin.types.js'
 
 export class LinkedinProvider extends BaseProviderClass {
     private clientId: string
