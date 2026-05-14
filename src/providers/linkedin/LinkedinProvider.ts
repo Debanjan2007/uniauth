@@ -22,7 +22,7 @@ export class LinkedinProvider extends BaseProviderClass {
     }
     async exchangeCodeForToken(code: string): Promise<TokenResponse> {
         try {
-            const url = LinkedinConstants.AccessTokenUrl + new URLSearchParams({
+            const url = LinkedinConstants.AccessTokenUrl + '?' + new URLSearchParams({
                 grant_type: 'authorization_code',
                 code: code,
                 redirect_uri: this.redirectUrl,
@@ -57,14 +57,18 @@ export class LinkedinProvider extends BaseProviderClass {
     }
     getAuthorizationUrl(): string {
         const state: string = generateState()
-        const scope = this.scope.join("%20")
-        const url = LinkedinConstants.AuthUrl + new URLSearchParams({
-            response_type: "code",
-            client_id: this.clientId,
-            redirect_ur: encodeURIComponent(this.redirectUrl),
-            state: state,
-            scope: scope
-        })
+        const params = new URLSearchParams({
+    response_type: "code",
+    client_id: this.clientId,
+    redirect_uri: this.redirectUrl,
+    state,
+    scope: this.scope.join(" ")
+})
+
+const url =
+    LinkedinConstants.AuthUrl +
+    "?" +
+    params.toString().replace(/\+/g, "%20")
 
         return url
     }
