@@ -2,11 +2,22 @@
   "name": "uniauth",
   "version": "0.0.1",
   "description": "",
+  "type": "module",
   "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
   "scripts": {
-    "test": ""
+    "test": "",
+    "build": "tsup"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Debanjan2007/uniauth.git"
   },
   "keywords": [
     "oauth",
