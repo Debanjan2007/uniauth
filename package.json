@@ -1,16 +1,19 @@
 {
-  "name": "uniauth",
-  "version": "0.0.1",
+  "name": "@deba_1307/uniauth",
+  "version": "0.0.2",
   "description": "",
   "type": "module",
   "main": "./dist/index.js",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     }
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "test": "",
     "build": "tsup"
