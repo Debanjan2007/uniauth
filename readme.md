@@ -16,13 +16,14 @@
   <img src="https://img.shields.io/badge/pkce-supported-111827?style=for-the-badge" />
   <img src="https://img.shields.io/badge/node.js-supported-339933?style=for-the-badge&logo=node.js&logoColor=white" />
 </p>
-
+  
 <p align="center">
   <img src="https://img.shields.io/npm/v/uniauth?style=flat-square&logo=npm" />
   <img src="https://img.shields.io/npm/dm/uniauth?style=flat-square&logo=npm" />
   <img src="https://img.shields.io/github/license/Debanjan2007/uniauth?style=flat-square" />
   <img src="https://img.shields.io/github/stars/Debanjan2007/uniauth?style=flat-square&logo=github" />
   <img src="https://img.shields.io/github/issues/Debanjan2007/uniauth?style=flat-square&logo=github" />
+  <img src="https://github.com/Debanjan2007/uniauth/actions/workflows/ci.yml/badge.svg" />
 </p>
 
 <p align="center">
@@ -74,6 +75,19 @@ This project is currently in early development.
 
 Expect API changes while the library evolves.
 
+---
+## Requirements
+
+Before using Uniauth, make sure your environment meets the following requirements:
+
+- Node.js >= 20
+- npm, pnpm, or yarn
+
+You can check your current Node.js version with:
+
+```bash
+node -v
+``` 
 ---
 
 ## 📦 Installation
@@ -171,7 +185,7 @@ Example:
 
 ## 🛠️ Notes
 
-- No tests are included yet
+- Automated tests and CI validation are now included
 - LinkedIn provider is implemented but still needs real-world testing
 - More providers can be added by extending `src/providers/core/Uniauth.ts` and creating new provider classes
 
