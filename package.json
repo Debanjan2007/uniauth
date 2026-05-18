@@ -36,12 +36,13 @@
   ],
   "author": "Debanjan",
   "license": "MIT",
-  "packageManager": "pnpm@10.15.0",
+  "packageManager": "npm@11.8.0",
   "devDependencies": {
     "tsup": "^8.5.1",
     "typescript": "^6.0.3"
   },
   "dependencies": {
-    "axios": "^1.16.1"
+    "axios": "^1.16.1",
+    "uuid": "^14.0.0"
   }
 }

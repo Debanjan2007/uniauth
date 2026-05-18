@@ -1,4 +1,4 @@
-﻿import type { useMemoryType } from "./memory.types"
+﻿import type { useMemoryType } from "./memory.types.js"
 const memorymanager = new Map()
 
 export function useMemory({key , value , ttl} : useMemoryType){
@@ -8,4 +8,12 @@ export function useMemory({key , value , ttl} : useMemoryType){
     setTimeout(() => {
         memorymanager.delete(key)
     }, ttl)
+}
+
+export function getMemory(key : string):string | null{
+    const value = memorymanager.get(key)
+    if(!value){
+        return null
+    }
+    return value
 }
