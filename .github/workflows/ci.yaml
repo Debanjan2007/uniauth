@@ -1,0 +1,58 @@
+﻿name: CI
+
+on:
+  pull_request: {}
+  release: {}
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Node ${{ matrix.node-version }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [18, 20, 22]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Type Check
+        run: npx tsc --noEmit
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Run Unit Tests
+        run: npm run test
+
+      - name: Build Package
+        run: npm run build
+
+      - name: Verify Package Contents
+        run: npm pack --dry-run
+
+      - name: Test ESM Import
+        run: |
+          node -e "import('./dist/index.js').then(() => console.log('ESM OK'))"
+
+      - name: Test CommonJS Import
+        run: |
+          node -e "const pkg = require('./dist/index.cjs'); console.log('CJS OK')"
