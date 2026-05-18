@@ -4,11 +4,13 @@ on:
   pull_request:
     paths-ignore:
         - "*.md"
+        - "assets/*"
   push:
     branches:
       - main
     paths-ignore:
         - "*.md"
+        - "assets/*"
 
 concurrency:
   group: ci-${{ github.ref }}
