@@ -1,4 +1,5 @@
 ﻿import { LinkedinProvider }  from '../linkedin/LinkedinProvider.js'
+import { GoogleProvider } from '../google/GoogleProvider.js'
 import type { UniauthConfig } from './types/UniauthConfig.types.js'
 
 export class Uniauth {
@@ -8,6 +9,12 @@ export class Uniauth {
             this.providers.set(
                 'Linkedin',
                 new LinkedinProvider(config.providers.Linkedin)
+            )
+        }
+        if(config.providers?.Google){
+            this.providers.set(
+                'Google',
+                new GoogleProvider(config.providers.Google)
             )
         }
     }
