@@ -9,3 +9,11 @@ export function useMemory({key , value , ttl} : useMemoryType){
         memorymanager.delete(key)
     }, ttl)
 }
+
+export function getMemory(key : string):string | null{
+    const value = memorymanager.get(key)
+    if(!value){
+        return null
+    }
+    return value
+}
