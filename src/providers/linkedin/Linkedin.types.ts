@@ -1,6 +1,7 @@
-﻿export interface LinkedinAuthParams {
+﻿import type { httpurl } from '../google/Google.types.js'
+export interface LinkedinAuthParams {
     clientId: string,
-    redirecturl: string,
+    redirecturl: httpurl,
     clientSecret: string,
     scope: string[]
 }
