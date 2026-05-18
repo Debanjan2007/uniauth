@@ -1,6 +1,6 @@
 {
   "name": "@deba_1307/uniauth",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "type": "module",
   "main": "./dist/index.js",
@@ -10,6 +10,9 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     }
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "files": [
     "dist"
