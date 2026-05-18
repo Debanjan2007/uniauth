@@ -108,6 +108,8 @@ pnpm add @deba_1307/uniauth
 
 ## 🚀 Usage
 
+### Linkedin Example
+
 ```ts
 import Uniauth from '@deba_1307/uniauth'
 
@@ -136,27 +138,6 @@ const profile = await linkedin.getUserProfile(token.accessToken)
 
 ---
 
-## 🔧 Provider Configuration
-
-### LinkedIn
-
-The `Linkedin` provider accepts the following config:
-
-- `clientId`: LinkedIn app client ID
-- `clientSecret`: LinkedIn app client secret
-- `redirecturl`: OAuth callback redirect URI
-- `scope`: array of LinkedIn OAuth scopes
-
-Example:
-
-```ts
-{
-  clientId: 'abc123',
-  clientSecret: 'secret',
-  redirecturl: 'https://yourapp.com/auth/linkedin/callback',
-  scope: ['r_liteprofile', 'r_emailaddress']
-}
-```
 ---
 
 ## 🚀 Google OAuth + PKCE Flow
@@ -212,6 +193,15 @@ const profile = await google.getUserProfile(token.accessToken)
 ## 🔧 Provider Configuration
 
 ### LinkedIn
+
+The `Linkedin` provider accepts the following config:
+
+- `clientId`: LinkedIn app client ID
+- `clientSecret`: LinkedIn app client secret
+- `redirecturl`: OAuth callback redirect URI
+- `scope`: array of LinkedIn OAuth scopes
+
+Example:
 
 ```ts
 {
