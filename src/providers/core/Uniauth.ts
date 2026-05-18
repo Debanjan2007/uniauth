@@ -3,7 +3,7 @@ import { GoogleProvider } from '../google/GoogleProvider.js'
 import type { UniauthConfig } from './types/UniauthConfig.types.js'
 
 export class Uniauth {
-    private providers = new Map<string, any>
+    private providers = new Map<string, unknown>
     constructor(config: UniauthConfig) {
         if(config.providers?.Linkedin){
             this.providers.set(

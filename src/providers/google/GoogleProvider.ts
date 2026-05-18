@@ -104,7 +104,7 @@ export class GoogleProvider extends BaseProviderClass {
         }
         return user
         } catch (error) {
-            throw new Error('Google user profile fetching is not implemented yet.')
+            throw new Error('Google user profile fetching is not implemented yet.', {cause: error})
         }
     }
 }
