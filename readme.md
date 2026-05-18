@@ -27,8 +27,8 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/providers-linkedin-blue?style=flat-square&logo=linkedin" />
-  <img src="https://img.shields.io/badge/google-planned-EA4335?style=flat-square&logo=google&logoColor=white" />
+  <img src="https://img.shields.io/badge/providers-linkedin-blue?style=flat-square&logo=inkedin" />
+  <img src="https://img.shields.io/badge/providers-google-green?style=flat-square&logo=google" />
   <img src="https://img.shields.io/badge/github-planned-181717?style=flat-square&logo=github" />
   <img src="https://img.shields.io/badge/discord-planned-5865F2?style=flat-square&logo=discord&logoColor=white" />
 </p>
@@ -58,6 +58,7 @@ This project is currently in early development.
 ### Implemented
 
 - LinkedIn OAuth provider
+- Google OAuth provider
 - Authorization URL generation
 - Access token exchange flow
 - User profile fetching
@@ -66,7 +67,6 @@ This project is currently in early development.
 
 ### Planned
 
-- Google OAuth
 - GitHub OAuth
 - Discord OAuth
 - Spotify OAuth

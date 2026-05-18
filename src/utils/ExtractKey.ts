@@ -3,7 +3,7 @@
     url.split('?')[1].split('&').forEach((elm)=> {
         const elmkey : string[] = elm.split('=')
         console.log(elmkey);        
-        if(elmkey[0] == 'scope'){
+        if(elmkey[0] == 'key'){
             key = elmkey[1]
         }
     })
