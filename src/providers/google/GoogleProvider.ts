@@ -80,6 +80,28 @@ export class GoogleProvider extends BaseProviderClass {
     }
 
     async getUserProfile(accessToken: string): Promise<UserProfile> {
-        throw new Error('Google user profile fetching is not implemented yet.')
+        try {
+            const { data } = await axios.get<{
+            email?: string;
+            name?: string;
+            picture?: string;
+        }>(
+            GoogleConstants.UserProfile , {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        })
+        const { picture, name, email } = data
+        const user: UserProfile = {
+            provider: 'Google',
+            avatarUrl: picture,
+            displayName: name,
+            email: email,
+            raw: data
+        }
+        return user
+        } catch (error) {
+            throw new Error('Google user profile fetching is not implemented yet.')
+        }
     }
 }
