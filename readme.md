@@ -23,7 +23,7 @@
   <img src="https://img.shields.io/github/license/Debanjan2007/uniauth?style=flat-square" />
   <img src="https://img.shields.io/github/stars/Debanjan2007/uniauth?style=flat-square&logo=github" />
   <img src="https://img.shields.io/github/issues/Debanjan2007/uniauth?style=flat-square&logo=github" />
-  <img src="https://github.com/Debanjan2007/uniauth/actions/workflows/ci.yml/badge.svg" />
+  <img src="https://github.com/Debanjan2007/uniauth/actions/workflows/ci.yaml/badge.svg" />
 </p>
 
 <p align="center">
@@ -157,7 +157,82 @@ Example:
   scope: ['r_liteprofile', 'r_emailaddress']
 }
 ```
+---
 
+## 🚀 Google OAuth + PKCE Flow
+
+Google provider uses the PKCE OAuth flow.
+
+The overall provider usage is identical to other providers, but there is one additional step.
+
+You must extract and store the generated PKCE key from the authorization URL using the `Extractkey()` helper.
+
+That extracted key is later required during token exchange.
+
+### Google Example
+
+```ts
+import Uniauth, { Extractkey } from '@deba_1307/uniauth'
+
+const auth = new Uniauth({
+  providers: {
+    Google: {
+      clientId: '<YOUR_GOOGLE_CLIENT_ID>',
+      clientSecret: '<YOUR_GOOGLE_CLIENT_SECRET>',
+      redirecturl: 'https://yourapp.com/auth/google/callback',
+      scope: ['openid', 'email', 'profile']
+    }
+  }
+})
+
+const google = auth.getProvider('Google')
+
+const authorizationUrl = google.getAuthorizationUrl()
+
+/*
+  Extract the generated PKCE key.
+
+  Store this key securely because it will be
+  required later during token exchange.
+*/
+
+const key = Extractkey(authorizationUrl)
+
+// redirect user to authorizationUrl
+
+// after OAuth callback:
+const token = await google.exchangeCodeForToken(code, key)
+
+// fetch user profile
+const profile = await google.getUserProfile(token.accessToken)
+```
+
+---
+
+## 🔧 Provider Configuration
+
+### LinkedIn
+
+```ts
+{
+  clientId: 'abc123',
+  clientSecret: 'secret',
+  redirecturl: 'https://yourapp.com/auth/linkedin/callback',
+  scope: ['r_liteprofile', 'r_emailaddress']
+}
+```
+---
+
+### Google
+
+```ts
+{
+  clientId: 'google-client-id',
+  clientSecret: 'google-secret',
+  redirecturl: 'https://yourapp.com/auth/google/callback',
+  scope: ['openid', 'email', 'profile']
+}
+```
 ---
 
 ## 🧠 API Notes
