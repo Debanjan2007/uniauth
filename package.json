@@ -15,7 +15,7 @@
     "dist"
   ],
   "scripts": {
-    "test": "",
+    "test": "vitest run",
     "lint": "eslint ./src",
     "build": "tsup"
   },
