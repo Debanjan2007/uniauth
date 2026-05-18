@@ -1,9 +1,13 @@
-﻿# Uni# Uniauth 🔐
+﻿<p align="center">
+  <img src="./assets/banner.jpeg" alt="Uniauth Banner" />
+</p>
+
+# Uniauth 🔐
 
 > Unified OAuth authentication toolkit for modern JavaScript applications.
 
 <p align="center">
-  <img src="./assets/logo.png" width="120" alt="Uniauth Logo" />
+  <img src="./assets/logo.jpeg" width="150" alt="Uniauth Logo" />
 </p>
 
 <p align="center">
