@@ -4,5 +4,6 @@
     tokenType?: string
     expiresIn?: number
     scope?: string
-    idToken?: string
+    idToken?: string,
+    raw: unknown
 }

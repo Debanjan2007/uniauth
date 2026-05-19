@@ -10,7 +10,12 @@ export function useMemory({key , value , ttl} : useMemoryType){
     }, ttl)
 }
 
-export function getMemory(key : string):string | null{
+interface memoryReturn {
+    value: string,
+    expireAt: number
+}
+
+export function getMemory(key : string):memoryReturn | null{
     const value = memorymanager.get(key)
     if(!value){
         return null

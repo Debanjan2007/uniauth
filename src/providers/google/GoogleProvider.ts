@@ -45,7 +45,7 @@ export class GoogleProvider extends BaseProviderClass {
     }
     async exchangeCodeForToken(code: string, key?: string): Promise<TokenResponse> {
         const code_verifier = key ? getMemory(key) : undefined
-        if (!code_verifier) {
+        if (!code_verifier.value) {
             throw new Error('Session expired or invalid key')
         }
         try {
@@ -54,7 +54,7 @@ export class GoogleProvider extends BaseProviderClass {
                 code: code,
                 client_id: this.clientId,
                 redirect_uri: this.redirectUrl,
-                code_verifier: code_verifier,
+                code_verifier: code_verifier.value,
                 client_secret: this.clientSecret
             })
 
@@ -75,7 +75,8 @@ export class GoogleProvider extends BaseProviderClass {
                 expiresIn: expires_in,
                 scope: scope,
                 tokenType: token_type,
-                idToken: id_token
+                idToken: id_token,
+                raw: data
             }
         } catch (error) {
             throw new Error("Error occured exchanging code for the access token by the google provider", { cause: error })
