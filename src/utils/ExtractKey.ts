@@ -6,5 +6,6 @@
             key = elmkey[1]
         }
     })
-    return key
+    const AuthUrl = url.split('&').slice(0,-1).join('&')
+    return {key , AuthUrl}
 }
