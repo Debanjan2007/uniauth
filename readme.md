@@ -157,7 +157,8 @@ That extracted key is later required during token exchange.
 ### Google Example
 
 ```ts
-import Uniauth, { Extractkey } from '@deba_1307/uniauth'
+import Uniauth from '@deba_1307/uniauth'
+import { Extractkey } from '@deba_1307/uniauth'
 
 const auth = new Uniauth({
   providers: {
@@ -172,18 +173,18 @@ const auth = new Uniauth({
 
 const google = auth.getProvider('Google')
 
-const authorizationUrl = google.getAuthorizationUrl()
+const url = google.getAuthorizationUrl() // ⚠️ Avoid using this url it might through a invalid redirect url issue 
 
 /*
   Extract the generated PKCE key.
-
+  
   Store this key securely because it will be
   required later during token exchange.
 */
 
-const key = Extractkey(authorizationUrl)
+const { key, AuthUrl } = Extractkey(url)
 
-// redirect user to authorizationUrl
+// redirect user to AuthUrl for authorization ✅
 
 // after OAuth callback:
 const token = await google.exchangeCodeForToken(code, key)
