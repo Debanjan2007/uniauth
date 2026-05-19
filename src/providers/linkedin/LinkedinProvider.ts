@@ -46,7 +46,8 @@ export class LinkedinProvider extends BaseProviderClass {
                 expiresIn: expires_in,
                 idToken: id_token,
                 scope: scope,
-                tokenType: token_type
+                tokenType: token_type,
+                raw: data
             }
 
             return response
