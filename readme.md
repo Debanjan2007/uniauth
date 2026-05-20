@@ -6,6 +6,8 @@
 
 > Unified OAuth authentication toolkit for modern JavaScript applications.
 
+OAuth providers should not require different code paths.
+
 <p align="center">
   <img src="./assets/logo.jpeg" width="150" alt="Uniauth Logo" />
 </p>
@@ -20,10 +22,10 @@
   <img src="https://img.shields.io/badge/pkce-supported-111827?style=for-the-badge" />
   <img src="https://img.shields.io/badge/node.js-supported-339933?style=for-the-badge&logo=node.js&logoColor=white" />
 </p>
-  
+
 <p align="center">
-  <img src="https://img.shields.io/npm/v/uniauth?style=flat-square&logo=npm" />
-  <img src="https://img.shields.io/npm/dm/uniauth?style=flat-square&logo=npm" />
+  <img src="https://img.shields.io/npm/v/@deba_1307/uniauth?style=flat-square&logo=npm" />
+  <img src="https://img.shields.io/npm/dm/@deba_1307/uniauth?style=flat-square&logo=npm" />
   <img src="https://img.shields.io/github/license/Debanjan2007/uniauth?style=flat-square" />
   <img src="https://img.shields.io/github/stars/Debanjan2007/uniauth?style=flat-square&logo=github" />
   <img src="https://img.shields.io/github/issues/Debanjan2007/uniauth?style=flat-square&logo=github" />
@@ -31,7 +33,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/providers-linkedin-blue?style=flat-square&logo=inkedin" />
+  <img src="https://img.shields.io/badge/providers-linkedin-blue?style=flat-square&logo=linkedin" />
   <img src="https://img.shields.io/badge/providers-google-green?style=flat-square&logo=google" />
   <img src="https://img.shields.io/badge/github-planned-181717?style=flat-square&logo=github" />
   <img src="https://img.shields.io/badge/discord-planned-5865F2?style=flat-square&logo=discord&logoColor=white" />
@@ -55,46 +57,57 @@ The goal is simple:
 
 ---
 
-## 🚧 Current Status
+## Why Uniauth?
 
-This project is currently in early development.
+Most OAuth libraries force developers into:
 
-### Implemented
+- provider-specific logic
+- inconsistent APIs
+- unnecessary boilerplate
+- framework lock-in
 
-- LinkedIn OAuth provider
-- Google OAuth provider
-- Authorization URL generation
-- Access token exchange flow
-- User profile fetching
-- PKCE utility helpers
-- ESM + CommonJS builds
+Uniauth provides:
 
-### Planned
+- a unified provider interface
+- consistent OAuth flow handling
+- TypeScript-first developer experience
+- lightweight and flexible architecture
 
-- GitHub OAuth
-- Discord OAuth
-- Spotify OAuth
-- Twitter/X OAuth
-- Facebook OAuth
-
-Expect API changes while the library evolves.
+Write authentication logic once and switch providers easily.
 
 ---
-## Requirements
 
-Before using Uniauth, make sure your environment meets the following requirements:
+## ✨ Features
 
-- Node.js >= 20
-- npm, pnpm, or yarn
+- 🔐 Unified OAuth API
+- ⚡ Lightweight architecture
+- 🧠 TypeScript-first developer experience
+- 🔄 Consistent provider flow handling
+- 🛠 Framework agnostic
+- 📦 Easy provider integration
+- 🚀 Minimal setup
+- 🔑 PKCE-ready utilities
+- 🌱 Scalable provider system
 
-You can check your current Node.js version with:
+---
 
-```bash
-node -v
-``` 
+## ⚖️ Comparison
+
+| Feature | Uniauth | Passport.js |
+|---|---|---|
+| Unified provider API | ✅ | ❌ |
+| TypeScript-first | ✅ | ⚠️ Partial |
+| Lightweight setup | ✅ | ❌ |
+| Consistent flow handling | ✅ | ❌ |
+| Minimal boilerplate | ✅ | ❌ |
+| Framework agnostic | ✅ | ⚠️ |
+| PKCE utilities included | ✅ | ❌ |
+
 ---
 
 ## 📦 Installation
+
+> Package currently published under the `@deba_1307` scope.
 
 ### npm
 
@@ -102,45 +115,55 @@ node -v
 npm install @deba_1307/uniauth
 ```
 
-or with pnpm:
+### pnpm
 
 ```bash
 pnpm add @deba_1307/uniauth
 ```
 
+### yarn
+
+```bash
+yarn add @deba_1307/uniauth
+```
+
 ---
 
-## 🚀 Usage
+## 📋 Requirements
 
-### Linkedin Example
+Before using Uniauth, make sure your environment meets the following requirements:
+
+- Node.js >= 20
+- npm, pnpm, or yarn
+
+Check your current Node.js version:
+
+```bash
+node -v
+```
+
+---
+
+## 🚀 Quick Start
 
 ```ts
 import Uniauth from '@deba_1307/uniauth'
 
 const auth = new Uniauth({
   providers: {
-    Linkedin: {
-      clientId: '<YOUR_LINKEDIN_CLIENT_ID>',
-      clientSecret: '<YOUR_LINKEDIN_CLIENT_SECRET>',
-      redirecturl: 'https://yourapp.com/auth/linkedin/callback',
-      scope: ['r_liteprofile', 'r_emailaddress']
+    Google: {
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      redirecturl: 'http://localhost:3000/auth/google/callback',
+      scope: ['openid', 'email', 'profile']
     }
   }
 })
 
-const linkedin = auth.getProvider('Linkedin')
+const google = auth.getProvider('Google')
 
-const authorizationUrl = linkedin.getAuthorizationUrl()
-// redirect user to authorizationUrl
-
-// after callback, exchange the authorization code:
-const token = await linkedin.exchangeCodeForToken(code)
-
-// fetch the LinkedIn user profile:
-const profile = await linkedin.getUserProfile(token.accessToken)
+const url = google.getAuthorizationUrl()
 ```
-
----
 
 ---
 
@@ -148,9 +171,9 @@ const profile = await linkedin.getUserProfile(token.accessToken)
 
 Google provider uses the PKCE OAuth flow.
 
-The overall provider usage is identical to other providers, but there is one additional step.
+The overall provider usage remains identical to other providers, but there is one additional step.
 
-You must extract and store the generated PKCE key from the authorization URL using the `Extractkey()` helper.
+You must extract and store the generated PKCE key and the Authurl from the authorization URL using the `Extractkey()` helper.
 
 That extracted key is later required during token exchange.
 
@@ -173,18 +196,24 @@ const auth = new Uniauth({
 
 const google = auth.getProvider('Google')
 
-const url = google.getAuthorizationUrl() // ⚠️ Avoid using this url it might through a invalid redirect url issue 
+/* ⚠️Don't use ❌ this 'url' as you authorization url
+
+it might return a invalid redirect_uri issue
+
+⚠️ */
+
+const url = google.getAuthorizationUrl()
 
 /*
   Extract the generated PKCE key.
-  
+
   Store this key securely because it will be
   required later during token exchange.
 */
 
 const { key, AuthUrl } = Extractkey(url)
 
-// redirect user to AuthUrl for authorization ✅
+// redirect user to AuthUrl
 
 // after OAuth callback:
 const token = await google.exchangeCodeForToken(code, key)
@@ -195,16 +224,45 @@ const profile = await google.getUserProfile(token.accessToken)
 
 ---
 
+## 🚀 LinkedIn OAuth Example
+
+```ts
+import Uniauth from '@deba_1307/uniauth'
+
+const auth = new Uniauth({
+  providers: {
+    Linkedin: {
+      clientId: '<YOUR_LINKEDIN_CLIENT_ID>',
+      clientSecret: '<YOUR_LINKEDIN_CLIENT_SECRET>',
+      redirecturl: 'https://yourapp.com/auth/linkedin/callback',
+      scope: ['r_liteprofile', 'r_emailaddress']
+    }
+  }
+})
+
+const linkedin = auth.getProvider('Linkedin')
+
+const authorizationUrl = linkedin.getAuthorizationUrl()
+
+// redirect user to authorizationUrl
+
+// after callback, exchange the authorization code:
+const token = await linkedin.exchangeCodeForToken(code)
+
+// fetch the LinkedIn user profile:
+const profile = await linkedin.getUserProfile(token.accessToken)
+```
+
+---
+
 ## 🔧 Provider Configuration
 
-### LinkedIn
+Every OAuth provider accepts the following configuration:
 
-The `Linkedin` provider accepts the following config:
-
-- `clientId`: LinkedIn app client ID
-- `clientSecret`: LinkedIn app client secret
-- `redirecturl`: OAuth callback redirect URI
-- `scope`: array of LinkedIn OAuth scopes
+- `clientId` — provider application client ID
+- `clientSecret` — provider application client secret
+- `redirecturl` — OAuth callback redirect URI
+- `scope` — array of OAuth scopes
 
 Example:
 
@@ -212,29 +270,76 @@ Example:
 {
   clientId: 'abc123',
   clientSecret: 'secret',
-  redirecturl: 'https://yourapp.com/auth/linkedin/callback',
-  scope: ['r_liteprofile', 'r_emailaddress']
+  redirecturl: 'https://yourapp.com/auth/provider/callback',
+  scope: ['openid', 'profile']
 }
 ```
+
 ---
 
-### Google
+## 🧠 Authentication Architecture
 
-```ts
-{
-  clientId: 'google-client-id',
-  clientSecret: 'google-secret',
-  redirecturl: 'https://yourapp.com/auth/google/callback',
-  scope: ['openid', 'email', 'profile']
-}
+```text
+Your Application
+       ↓
+    Uniauth
+       ↓
+OAuth Providers
+(Google, LinkedIn, GitHub...)
 ```
+
+Uniauth abstracts provider-specific OAuth logic into a unified developer-friendly API.
+
+---
+
+## 🚧 Current Status
+
+Uniauth is under active development and new providers/features are being added continuously.
+
+### Implemented
+
+- LinkedIn OAuth provider
+- Google OAuth provider
+- Authorization URL generation
+- Access token exchange flow
+- User profile fetching
+- PKCE utility helpers
+- ESM + CommonJS builds
+- CI workflow integration
+
+### Planned
+
+- GitHub OAuth
+- Discord OAuth
+- Spotify OAuth
+- Twitter/X OAuth
+- Facebook OAuth
+- Session helpers
+- Adapter ecosystem
+
+---
+
+## 🗺️ Roadmap
+
+- [x] LinkedIn OAuth
+- [x] Google OAuth
+- [x] PKCE utilities
+- [x] ESM + CommonJS support
+- [ ] GitHub OAuth
+- [ ] Discord OAuth
+- [ ] Spotify OAuth
+- [ ] Session utilities
+- [ ] Provider adapters
+- [ ] Framework integrations
+- [ ] Better developer tooling
+
 ---
 
 ## 🧠 API Notes
 
-- `Uniauth` currently exposes a default class from `src/providers/core/Uniauth`
-- `getProvider(providerName)` returns the provider instance for the requested provider name
-- `LinkedinProvider` includes:
+- `Uniauth` currently exposes a default class
+- `getProvider(providerName)` returns the provider instance
+- Providers expose:
   - `getAuthorizationUrl()`
   - `exchangeCodeForToken(code)`
   - `getUserProfile(accessToken)`
@@ -253,11 +358,11 @@ Example:
 
 ---
 
-## 🛠️ Notes
+## 🛠 Notes
 
-- Automated tests and CI validation are now included
-- LinkedIn provider is implemented but still needs real-world testing
-- More providers can be added by extending `src/providers/core/Uniauth.ts` and creating new provider classes
+- Automated tests and CI validation are included
+- The provider system is designed for scalable expansion
+- Additional providers can be added by extending the provider core architecture
 
 ---
 
@@ -265,7 +370,13 @@ Example:
 
 Contributions are welcome.
 
-If you want to add a provider, create a new provider class under `src/providers`, add its types, and register it in `src/providers/core/Uniauth.ts`.
+If you want to add a provider:
+
+1. Create a provider class under `src/providers`
+2. Add the required provider types
+3. Register the provider inside `src/providers/core/Uniauth.ts`
+
+Issues, discussions, and pull requests are always appreciated.
 
 ---
 
