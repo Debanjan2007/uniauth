@@ -1,4 +1,7 @@
-﻿export interface UserProfile {
+﻿/**
+ * Canonical user profile returned by an authenticated provider.
+ */
+export interface UserProfile {
     email?: string
     username?: string
     displayName?: string
