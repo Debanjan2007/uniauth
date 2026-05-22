@@ -1,13 +1,11 @@
 ﻿import { BaseProviderClass } from '../BaseClass.js'
 import type { TokenResponse } from '../core/types/TokenResponse.types.js';
-import type { GoogleAuthParams } from './Google.types.js'
+import type { GoogleAuthParams, httpurl } from './Google.types.js'
 import type { UserProfile } from '../core/types/UserProfile.types.js';
-import { generateCodeChallenge } from '../../pkce/generateCodeChallenge.js'
-import { generateCodeVerifier } from '../../pkce/generateCodeVerifier.js'
-import { useMemory , getMemory } from '../../pkce/sessionManagement.js'
-import { generateUniqueid } from '../../utils/UniqueKeyGenerate.js'
+import { getMemory } from '../../pkce/sessionManagement.js'
 import { GoogleConstants } from './Google.constants.js'
 import axios from 'axios';
+import { generateAuthUrl } from '../core/helper/GenerateAuthUrl.js'
 export class GoogleProvider extends BaseProviderClass {
     private clientId: string
     private clientSecret: string
@@ -23,25 +21,8 @@ export class GoogleProvider extends BaseProviderClass {
     }
 
     getAuthorizationUrl(): string {
-        const key : string = generateUniqueid()
-        const code_verifier : string = generateCodeVerifier()
-        useMemory({key , value: code_verifier , ttl: 60000})
-        const code_challenge = generateCodeChallenge(code_verifier)
-        const state = generateUniqueid()
-        const param =  new URLSearchParams({
-            client_id: this.clientId ,
-            redirect_uri: this.redirectUrl ,
-            response_type: 'code',
-            state: state,
-            scope: this.scope.join(" "),
-            code_challenge: code_challenge,
-            code_challenge_method: 'S256',
-            key: key
-        })
-        const url = GoogleConstants.AuthUrl + '?' +
-            param.toString().replace(/\+/g, "%20")
-
-        return url
+        const uri = generateAuthUrl(this.clientId , this.redirectUrl as httpurl, this.scope)
+        return uri
     }
     async exchangeCodeForToken(code: string, key?: string): Promise<TokenResponse> {
         const code_verifier = key ? getMemory(key) : undefined
