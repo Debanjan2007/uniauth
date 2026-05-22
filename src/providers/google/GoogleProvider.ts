@@ -1,11 +1,11 @@
-﻿import { BaseProviderClass } from '../BaseClass.js'
-import type { TokenResponse } from '../core/types/TokenResponse.types.js';
-import type { GoogleAuthParams, httpurl } from './Google.types.js'
-import type { UserProfile } from '../core/types/UserProfile.types.js';
+﻿import axios from 'axios';
+import { BaseProviderClass } from '../BaseClass.js'
 import { getMemory } from '../../pkce/sessionManagement.js'
 import { GoogleConstants } from './Google.constants.js'
-import axios from 'axios';
 import { generateAuthUrl } from '../core/helper/GenerateAuthUrl.js'
+import type { TokenResponse } from '../core/types/TokenResponse.types.js';
+import type { AuthParams as GoogleAuthParams, httpurl } from '../core/Shared/AuthParams.types.js'
+import type { UserProfile } from '../core/types/UserProfile.types.js';
 export class GoogleProvider extends BaseProviderClass {
     private clientId: string
     private clientSecret: string

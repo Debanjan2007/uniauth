@@ -4,7 +4,7 @@ import { generateCodeVerifier as generateState } from '../../pkce/generateCodeVe
 import { LinkedinConstants } from './linkedin.constants.js'
 import type { TokenResponse } from '../core/types/TokenResponse.types.js';
 import type { UserProfile } from '../core/types/UserProfile.types.js';
-import type { LinkedinAuthParams } from './Linkedin.types.js'
+import type { AuthParams as LinkedinAuthParams } from '../core/Shared/AuthParams.types.js'
 
 export class LinkedinProvider extends BaseProviderClass {
     private clientId: string

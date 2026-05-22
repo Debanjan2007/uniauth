@@ -3,7 +3,7 @@ import { generateCodeChallenge } from '../../../pkce/generateCodeChallenge.js'
 import { generateCodeVerifier } from '../../../pkce/generateCodeVerifier.js'
 import { useMemory } from '../../../pkce/sessionManagement.js'
 import { GoogleConstants } from '../../google/Google.constants.js'
-import type { httpurl } from '../../google/Google.types.js'
+import type { httpurl } from '../Shared/AuthParams.types.js'
 
 const generateAuthUrl = (clientId: string , redirectUrl: httpurl , scope: string[]):string => {
     const key : string = generateUniqueid()
