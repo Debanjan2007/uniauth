@@ -2,10 +2,9 @@
 import { generateCodeChallenge } from '../../../pkce/generateCodeChallenge.js'
 import { generateCodeVerifier } from '../../../pkce/generateCodeVerifier.js'
 import { useMemory } from '../../../pkce/sessionManagement.js'
-import { GoogleConstants } from '../../google/Google.constants.js'
 import type { httpurl } from '../Shared/AuthParams.types.js'
 
-const generateAuthUrl = (clientId: string , redirectUrl: httpurl , scope: string[]):string => {
+const generateAuthUrl = (clientId: string , redirectUrl: httpurl , scope: string[] , authbaseUrl: string):string => {
     const key : string = generateUniqueid()
             const code_verifier : string = generateCodeVerifier()
             useMemory({key , value: code_verifier , ttl: 60000})
@@ -21,7 +20,7 @@ const generateAuthUrl = (clientId: string , redirectUrl: httpurl , scope: string
                 code_challenge_method: 'S256', 
                 key: key
             })
-            const url = GoogleConstants.AuthUrl + '?' +
+            const url = authbaseUrl + '?' +
                 param.toString().replace(/\+/g, "%20")   
             return url
 }
