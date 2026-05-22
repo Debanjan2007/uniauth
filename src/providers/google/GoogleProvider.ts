@@ -21,7 +21,7 @@ export class GoogleProvider extends BaseProviderClass {
     }
 
     getAuthorizationUrl(): string {
-        const uri = generateAuthUrl(this.clientId , this.redirectUrl as httpurl, this.scope)
+        const uri = generateAuthUrl(this.clientId , this.redirectUrl as httpurl, this.scope , GoogleConstants.AuthUrl)
         return uri
     }
     async exchangeCodeForToken(code: string, key?: string): Promise<TokenResponse> {
