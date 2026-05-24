@@ -5,6 +5,7 @@ import { LinkedinConstants } from './linkedin.constants.js'
 import type { TokenResponse } from '../core/types/TokenResponse.types.js';
 import type { UserProfile } from '../core/types/UserProfile.types.js';
 import type { AuthParams as LinkedinAuthParams } from '../core/Shared/AuthParams.types.js'
+import { getUserProfile } from '../core/Shared/helper/UserProfile.js';
 
 export class LinkedinProvider extends BaseProviderClass {
     private clientId: string
@@ -59,38 +60,22 @@ export class LinkedinProvider extends BaseProviderClass {
     getAuthorizationUrl(): string {
         const state: string = generateState()
         const params = new URLSearchParams({
-    response_type: "code",
-    client_id: this.clientId,
-    redirect_uri: this.redirectUrl,
-    state,
-    scope: this.scope.join(" ")
-})
+            response_type: "code",
+            client_id: this.clientId,
+            redirect_uri: this.redirectUrl,
+            state,
+            scope: this.scope.join(" ")
+        })
 
-const url =
-    LinkedinConstants.AuthUrl +
-    "?" +
-    params.toString().replace(/\+/g, "%20")
+        const url =
+            LinkedinConstants.AuthUrl +
+            "?" +
+            params.toString().replace(/\+/g, "%20")
 
         return url
     }
     async getUserProfile(accessToken: string): Promise<UserProfile> {
-        const { data } = await axios.get<{
-            email?: string;
-            name?: string;
-            picture?: string;
-        }>(LinkedinConstants.UserProfile, {
-            headers: {
-                Authorization: `Bearer ${accessToken}`
-            }
-        })
-        const { picture, name, email } = data
-        const user: UserProfile = {
-            provider: 'Linkedin',
-            avatarUrl: picture,
-            displayName: name,
-            email: email,
-            raw: data
-        }
+        const user = await getUserProfile(accessToken , LinkedinConstants.UserProfile , 'Likedin')
         return user
     }
 }
