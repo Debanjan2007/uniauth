@@ -1,7 +1,7 @@
 ﻿import { LinkedinProvider }  from '../linkedin/LinkedinProvider.js'
 import { GoogleProvider } from '../google/GoogleProvider.js'
+import { GithubProvider } from '../Github/GithubProviders.js'
 import type { UniauthConfig } from './types/UniauthConfig.types.js'
-
 export class Uniauth {
     private providers = new Map<string, unknown>
     constructor(config: UniauthConfig) {
@@ -15,6 +15,12 @@ export class Uniauth {
             this.providers.set(
                 'Google',
                 new GoogleProvider(config.providers.Google)
+            )
+        }
+        if(config.providers?.Github){
+            this.providers.set(
+                'Github' ,
+                new GithubProvider(config.providers.Github)
             )
         }
     }
