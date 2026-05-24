@@ -7,6 +7,5 @@
 export * from './providers/core/types/TokenResponse.types.js'
 export * from './providers/core/types/UniauthConfig.types.js'
 export * from './providers/core/types/UserProfile.types.js'
-export * from './providers/google/Google.types.js'
-export * from './providers/linkedin/Linkedin.types.js'
+export * from './providers/core/types/TokenResponse.types.js'
 export * from './pkce/memory.types.js'
