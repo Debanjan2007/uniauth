@@ -1,8 +1,8 @@
-﻿import { generateUniqueid } from '../../../utils/UniqueKeyGenerate.js'
-import { generateCodeChallenge } from '../../../pkce/generateCodeChallenge.js'
-import { generateCodeVerifier } from '../../../pkce/generateCodeVerifier.js'
-import { useMemory } from '../../../pkce/sessionManagement.js'
-import type { httpurl } from '../Shared/AuthParams.types.js'
+﻿import { generateUniqueid } from '../../../../utils/UniqueKeyGenerate.js'
+import { generateCodeChallenge } from '../../../../pkce/generateCodeChallenge.js'
+import { generateCodeVerifier } from '../../../../pkce/generateCodeVerifier.js'
+import { useMemory } from '../../../../pkce/sessionManagement.js'
+import type { httpurl } from '../../Shared/AuthParams.types.js'
 
 const generateAuthUrl = (clientId: string , redirectUrl: httpurl , scope: string[] , authbaseUrl: string):string => {
     const key : string = generateUniqueid()
