@@ -11,7 +11,7 @@ describe('Google-Provider',()=> {
     it('should generate an auth url with specific fields' , () => {
         const url = provider.getAuthorizationUrl()
         expect(url).toBeDefined()
-        expect(url).toContain("https://github.com")
+        expect(url).toContain("https://github.com/login/oauth/authorize")
         expect(url).toContain('code_challenge')
         expect(url).toContain('code_challenge_method')
         expect(url).toContain('key')
