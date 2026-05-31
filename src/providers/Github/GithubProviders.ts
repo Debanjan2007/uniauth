@@ -22,19 +22,20 @@ class GithubProvider extends BaseProviderClass {
     }
     
     getAuthorizationUrl(): string {
-        const uri = generateAuthUrl(this.clientId , this.redirectUrl as httpurl, this.scope , GithubConstants.Endpoint)
+        const uri = generateAuthUrl(this.clientId , this.redirectUrl as httpurl, this.scope , GithubConstants.AuthUrl)
+        console.log(uri);        
         return uri
     }
     async exchangeCodeForToken(code: string , key? : string): Promise<TokenResponse> {
         if(!key){
             throw new Error('Key is expected')
         }
-        const response = await ExchangeCodeforToken(this.clientId , this.redirectUrl as httpurl , this.clientSecret , this.scope , code , key , GithubConstants.Endpoint)
+        const response = await ExchangeCodeforToken(this.clientId , this.redirectUrl as httpurl , this.clientSecret , this.scope , code , key , GithubConstants.AccessTokenUrl)
         console.log(response);
         return response
     }
     async getUserProfile(accessToken: string): Promise<UserProfile> {
-        const data = await getUserProfile(accessToken, GithubConstants.Endpoint , 'Github')
+        const data = await getUserProfile(accessToken, GithubConstants.UserProfile , 'Github')
         console.log(data);        
         return data
     }
