@@ -35,7 +35,7 @@ OAuth providers should not require different code paths.
 <p align="center">
   <img src="https://img.shields.io/badge/providers-linkedin-blue?style=flat-square&logo=linkedin" />
   <img src="https://img.shields.io/badge/providers-google-green?style=flat-square&logo=google" />
-  <img src="https://img.shields.io/badge/github-planned-181717?style=flat-square&logo=github" />
+  <img src="https://img.shields.io/badge/providers-github-181717?style=flat-square&logo=github" />
   <img src="https://img.shields.io/badge/discord-planned-5865F2?style=flat-square&logo=discord&logoColor=white" />
 </p>
 
@@ -148,6 +148,7 @@ node -v
 
 ```ts
 import Uniauth from '@deba_1307/uniauth'
+// or import { Uniauth } from '@deba_1307/uniauth' or const Uniauth = require(@deba_1307/uniauth)
 
 const auth = new Uniauth({
   providers: {
@@ -182,6 +183,7 @@ That extracted key is later required during token exchange.
 ```ts
 import Uniauth from '@deba_1307/uniauth'
 import { Extractkey } from '@deba_1307/uniauth'
+// or import { Uniauth } from '@deba_1307/uniauth' or const Uniauth = require(@deba_1307/uniauth)
 
 const auth = new Uniauth({
   providers: {
@@ -228,6 +230,7 @@ const profile = await google.getUserProfile(token.accessToken)
 
 ```ts
 import Uniauth from '@deba_1307/uniauth'
+// or import { Uniauth } from '@deba_1307/uniauth' or const Uniauth = require(@deba_1307/uniauth)
 
 const auth = new Uniauth({
   providers: {
@@ -300,6 +303,7 @@ Uniauth is under active development and new providers/features are being added c
 
 - LinkedIn OAuth provider
 - Google OAuth provider
+- GitHub OAuth
 - Authorization URL generation
 - Access token exchange flow
 - User profile fetching
@@ -309,7 +313,6 @@ Uniauth is under active development and new providers/features are being added c
 
 ### Planned
 
-- GitHub OAuth
 - Discord OAuth
 - Spotify OAuth
 - Twitter/X OAuth
@@ -325,7 +328,7 @@ Uniauth is under active development and new providers/features are being added c
 - [x] Google OAuth
 - [x] PKCE utilities
 - [x] ESM + CommonJS support
-- [ ] GitHub OAuth
+- [x] GitHub OAuth
 - [ ] Discord OAuth
 - [ ] Spotify OAuth
 - [ ] Session utilities
