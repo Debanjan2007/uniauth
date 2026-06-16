@@ -24,9 +24,10 @@ OAuth providers should not require different code paths.
 </p>
 
 <p align="center">
+  <img src="https://img.shields.io/npm/dt/@deba_1307/uniauth" alt="total downloads" />
+  <img src="https://img.shields.io/npm/l/@deba_1307/uniauth" alt="license" />
   <img src="https://img.shields.io/npm/v/@deba_1307/uniauth?style=flat-square&logo=npm" />
   <img src="https://img.shields.io/npm/dm/@deba_1307/uniauth?style=flat-square&logo=npm" />
-  <img src="https://img.shields.io/github/license/Debanjan2007/uniauth?style=flat-square" />
   <img src="https://img.shields.io/github/stars/Debanjan2007/uniauth?style=flat-square&logo=github" />
   <img src="https://img.shields.io/github/issues/Debanjan2007/uniauth?style=flat-square&logo=github" />
   <img src="https://github.com/Debanjan2007/uniauth/actions/workflows/ci.yaml/badge.svg" />
