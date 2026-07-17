@@ -5,8 +5,8 @@
  */
 export interface UniauthConfig {
     providers : {
-        Linkedin?: AuthParams
-        Google?: AuthParams
-        Github?: AuthParams
+        linkedin?: AuthParams
+        google?: AuthParams
+        github?: AuthParams
     }
 }

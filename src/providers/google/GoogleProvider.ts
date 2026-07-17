@@ -1,4 +1,4 @@
-﻿import { BaseProviderClass } from '../BaseClass.js'
+﻿import { BaseProviderClass } from '../core/BaseClass.js'
 import { GoogleConstants } from './Google.constants.js'
 import { generateAuthUrl } from '../core/Shared/helper/GenerateAuthUrl.js'
 import type { TokenResponse } from '../core/types/TokenResponse.types.js';

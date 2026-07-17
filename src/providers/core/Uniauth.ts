@@ -1,4 +1,4 @@
-﻿import { LinkedinProvider }  from '../linkedin/LinkedinProvider.js'
+﻿import { LinkedinProvider } from '../linkedin/LinkedinProvider.js'
 import { GoogleProvider } from '../google/GoogleProvider.js'
 import { GithubProvider } from '../Github/GithubProviders.js'
 import type { UniauthConfig } from './types/UniauthConfig.types.js'
@@ -6,30 +6,32 @@ import { BaseProviderClass } from "./BaseClass.js"
 export class Uniauth {
     private providers = new Map<string, BaseProviderClass>()
     constructor(config: UniauthConfig) {
-        if(config.providers?.Linkedin){
+        if (config.providers?.linkedin) {
             this.providers.set(
-                'Linkedin',
-                new LinkedinProvider(config.providers.Linkedin)
+                'linkedin',
+                new LinkedinProvider(config.providers.linkedin)
             )
         }
-        if(config.providers?.Google){
+        if (config.providers?.google) {
             this.providers.set(
-                'Google',
-                new GoogleProvider(config.providers.Google)
+                'google',
+                new GoogleProvider(config.providers.google)
             )
         }
-        if(config.providers?.Github){
+        if (config.providers?.github) {
             this.providers.set(
-                'Github' ,
-                new GithubProvider(config.providers.Github)
+                'github',
+                new GithubProvider(config.providers.github)
             )
         }
     }
-    getProvider(providername: string){
-        const provider = this.providers.get(providername)
-        if(!provider){
-            return 'Wrong provider call'
+    getProvider<T extends BaseProviderClass>(providerName: string): T {
+        const provider = this.providers.get(providerName.toLowerCase());
+
+        if (!provider) {
+            throw new Error(`Unknown provider: ${providerName}`);
         }
-        return provider
+
+        return provider as T;
     }
 }

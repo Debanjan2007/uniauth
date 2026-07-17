@@ -1,5 +1,5 @@
 ﻿import axios from 'axios'
-import { BaseProviderClass } from '../BaseClass.js'
+import { BaseProviderClass } from '../core/BaseClass.js'
 import { generateCodeVerifier as generateState } from '../../pkce/generateCodeVerifier.js'
 import { LinkedinConstants } from './linkedin.constants.js'
 import type { TokenResponse } from '../core/types/TokenResponse.types.js';
