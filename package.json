@@ -1,6 +1,6 @@
 {
   "name": "@deba_1307/uniauth",
-  "version": "0.1.51",
+  "version": "0.2.51",
   "description": "",
   "type": "module",
   "main": "./dist/index.js",
