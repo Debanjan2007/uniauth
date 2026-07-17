@@ -92,6 +92,24 @@ Write authentication logic once and switch providers easily.
 
 ---
 
+## 🎯 Unified Provider Interface
+
+Every OAuth provider implements the same interface.
+
+```ts
+interface Provider {
+    getAuthorizationUrl(): string
+
+    exchangeCodeForToken(code: string): Promise<TokenResponse>
+
+    getUserProfile(accessToken: string): Promise<UserProfile>
+}
+```
+
+Whether you're using Google, LinkedIn, GitHub, or future providers, the API remains identical.
+
+---
+
 ## ⚖️ Comparison
 
 | Feature | Uniauth | Passport.js |
@@ -341,12 +359,15 @@ Uniauth is under active development and new providers/features are being added c
 
 ## 🧠 API Notes
 
-- `Uniauth` currently exposes a default class
-- `getProvider(providerName)` returns the provider instance
-- Providers expose:
-  - `getAuthorizationUrl()`
-  - `exchangeCodeForToken(code)`
-  - `getUserProfile(accessToken)`
+`Uniauth` exposes a unified provider interface through `getProvider()`.
+
+Every provider returned by `getProvider()` implements the same core OAuth API:
+
+- `getAuthorizationUrl()`
+- `exchangeCodeForToken(code)`
+- `getUserProfile(accessToken)`
+
+This allows applications to switch OAuth providers without changing their authentication flow.
 
 ---
 
