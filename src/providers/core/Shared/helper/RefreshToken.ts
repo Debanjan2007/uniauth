@@ -1,7 +1,8 @@
 ﻿import axios from "axios";
 import type { httpurl } from "../AuthParams.types.js";
+import type { TokenRefresh } from "../../types/RefreshToken.types.js"
 
-async function refreshToken(refreshtoken: string, clientId: string, clientSecret: string, URI: httpurl): Promise<unknown> {
+async function refreshToken(refreshtoken: string, clientId: string, clientSecret: string, URI: httpurl): Promise<TokenRefresh> {
     try {
         const payload = {
             grant_type: 'refresh_token',
@@ -9,7 +10,7 @@ async function refreshToken(refreshtoken: string, clientId: string, clientSecret
             client_id: clientId,
             client_secret: clientSecret
         }
-        const TokenRes = await axios.post(
+        const TokenRes = await axios.post<TokenRefresh>(
             URI,
             new URLSearchParams(payload),
             {
@@ -18,8 +19,7 @@ async function refreshToken(refreshtoken: string, clientId: string, clientSecret
                 }
             }
         )
-        console.log(TokenRes);
-        return TokenRes
+        return TokenRes.data
     } catch (error) {
         throw new Error("Error occured while refreshing the access token", { cause: error })
     }

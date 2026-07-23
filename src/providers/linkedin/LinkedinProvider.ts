@@ -7,6 +7,7 @@ import type { UserProfile } from '../core/types/UserProfile.types.js';
 import type { httpurl, AuthParams as LinkedinAuthParams } from '../core/Shared/AuthParams.types.js'
 import { getUserProfile } from '../core/Shared/helper/UserProfile.js';
 import { refreshToken } from "../core/Shared/helper/RefreshToken.js"
+import type { TokenRefresh } from "../core/types/RefreshToken.types.js"
 
 export class LinkedinProvider extends BaseProviderClass {
     private clientId: string
@@ -76,21 +77,24 @@ export class LinkedinProvider extends BaseProviderClass {
         return url
     }
     async getUserProfile(accessToken: string): Promise<UserProfile> {
-        const user = await getUserProfile(accessToken , LinkedinConstants.UserProfile , 'Likedin')
+        const user = await getUserProfile(accessToken, LinkedinConstants.UserProfile, 'Likedin')
         return user
     }
-    async refreshAccessToken(refreshTokenValue: string): Promise<unknown> {
-        if(!refreshTokenValue){
-            throw new Error("Refresh token is required to refresh the access token")
+    async refreshAccessToken(refreshTokenValue: string): Promise<TokenRefresh> {
+        try {
+            if (!refreshTokenValue) {
+                throw new Error("Refresh token is required to refresh the access token")
+            }
+
+            const response = await refreshToken(
+                refreshTokenValue,
+                this.clientId,
+                this.clientSecret,
+                LinkedinConstants.AccessTokenUrl as unknown as httpurl
+            )
+            return response
+        } catch (error) {
+            throw new Error("can't refresgh the token right now!Try it later", { cause: error })
         }
-
-        const response = await refreshToken(
-            refreshTokenValue,
-            this.clientId,
-            this.clientSecret,
-            LinkedinConstants.AccessTokenUrl as unknown as httpurl
-        )
-
-        return response
     }
 }
