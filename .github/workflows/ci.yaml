@@ -6,15 +6,15 @@ on:
         - "*.md"
         - "assets/*"
         - "*.yaml"
-        - '*.yml'
+        - "*.yml"
   push:
     branches:
       - main
     paths-ignore:
         - "*.md"
         - "assets/*"
-        - '*.yaml'
-        - '*.yml'
+        - "*.yaml"
+        - "*.yml"
 
 concurrency:
   group: ci-${{ github.ref }}
