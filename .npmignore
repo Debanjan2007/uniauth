@@ -1,2 +1,14 @@
-﻿./src
-./node_modules
+src/
+docs/
+.github/
+assets/
+*.test.ts
+*.config.ts
+tsconfig.json
+.gitignore
+.eslintrc*
+eslint.config.ts
+CONTRIBUTING.md
+CHANGELOG.md
+SECURITY.md
+CODE_OF_CONDUCT.md
