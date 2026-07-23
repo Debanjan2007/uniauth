@@ -4,8 +4,9 @@ import { generateCodeVerifier as generateState } from '../../pkce/generateCodeVe
 import { LinkedinConstants } from './linkedin.constants.js'
 import type { TokenResponse } from '../core/types/TokenResponse.types.js';
 import type { UserProfile } from '../core/types/UserProfile.types.js';
-import type { AuthParams as LinkedinAuthParams } from '../core/Shared/AuthParams.types.js'
+import type { httpurl, AuthParams as LinkedinAuthParams } from '../core/Shared/AuthParams.types.js'
 import { getUserProfile } from '../core/Shared/helper/UserProfile.js';
+import { refreshToken } from "../core/Shared/helper/RefreshToken.js"
 
 export class LinkedinProvider extends BaseProviderClass {
     private clientId: string
@@ -77,5 +78,19 @@ export class LinkedinProvider extends BaseProviderClass {
     async getUserProfile(accessToken: string): Promise<UserProfile> {
         const user = await getUserProfile(accessToken , LinkedinConstants.UserProfile , 'Likedin')
         return user
+    }
+    async refreshAccessToken(refreshTokenValue: string): Promise<unknown> {
+        if(!refreshTokenValue){
+            throw new Error("Refresh token is required to refresh the access token")
+        }
+
+        const response = await refreshToken(
+            refreshTokenValue,
+            this.clientId,
+            this.clientSecret,
+            LinkedinConstants.AccessTokenUrl as unknown as httpurl
+        )
+
+        return response
     }
 }
