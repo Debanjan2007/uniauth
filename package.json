@@ -1,6 +1,6 @@
 {
   "name": "@deba_1307/uniauth",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Unified OAuth 2.0 authentication toolkit for Node.js — TypeScript-first, PKCE-ready, framework-agnostic.",
   "type": "module",
   "main": "./dist/index.js",
