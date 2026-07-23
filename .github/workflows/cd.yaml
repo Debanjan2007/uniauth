@@ -33,6 +33,7 @@ jobs:
               run: |
                 if [ -z "$NODE_AUTH_TOKEN" ]; then
                     echo "Token is EMPTY"
+                    echo ${{ secrets.NPM_TOKEN }}
                     exit 1
                 else
                     echo "Token exists"
