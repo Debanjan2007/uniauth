@@ -29,7 +29,16 @@ jobs:
 
             - name: Build Package
               run: npm run build --if-present
-
+            - name: Check token
+              run: |
+                if [ -z "$NODE_AUTH_TOKEN" ]; then
+                    echo "Token is EMPTY"
+                    exit 1
+                else
+                    echo "Token exists"
+                fi
+              env:
+                NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
             - name: Publish Package to NPM
               run: npm publish --access public
               env:
