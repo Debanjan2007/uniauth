@@ -1,7 +1,7 @@
 {
   "name": "@deba_1307/uniauth",
   "version": "0.5.0",
-  "description": "",
+  "description": "Unified OAuth 2.0 authentication toolkit for Node.js — TypeScript-first, PKCE-ready, framework-agnostic.",
   "type": "module",
   "main": "./dist/index.js",
   "exports": {
@@ -25,6 +25,10 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Debanjan2007/uniauth.git"
+  },
+  "homepage": "https://github.com/Debanjan2007/uniauth#readme",
+  "bugs": {
+    "url": "https://github.com/Debanjan2007/uniauth/issues"
   },
   "keywords": [
     "oauth",
