@@ -5,12 +5,14 @@ on:
     paths-ignore:
         - "*.md"
         - "assets/*"
+        - "*.yml"
   push:
     branches:
       - main
     paths-ignore:
         - "*.md"
         - "assets/*"
+        - '*.yml'
 
 concurrency:
   group: ci-${{ github.ref }}
