@@ -3,18 +3,18 @@
 on:
   pull_request:
     paths-ignore:
-        - "*.md"
-        - "assets/*"
-        - "*.yaml"
-        - "*.yml"
+      - "**/*.md"
+      - "assets/**"
+      - "**/*.yaml"
+      - "**/*.yml"
   push:
     branches:
       - main
     paths-ignore:
-        - "*.md"
-        - "assets/*"
-        - "*.yaml"
-        - "*.yml"
+      - "**/*.md"
+      - "assets/**"
+      - "**/*.yaml"
+      - "**/*.yml"
 
 concurrency:
   group: ci-${{ github.ref }}
