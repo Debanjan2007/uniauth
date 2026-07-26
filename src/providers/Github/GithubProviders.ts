@@ -1,4 +1,4 @@
-import type { TokenResponse, UserProfile } from '../../index.types.js'
+import type { TokenRefresh, TokenResponse, UserProfile } from '../../index.types.js'
 import { BaseProviderClass } from '../core/BaseClass.js'
 import { generateAuthUrl } from '../core/Shared/helper/GenerateAuthUrl.js'
 import type { httpurl } from '../core/Shared/AuthParams.types.js'
@@ -6,6 +6,8 @@ import { GithubConstants } from './Guthub.constants.js'
 import { ExchangeCodeforToken } from '../core/Shared/helper/ExchangeForToken.js' 
 import { getUserProfile } from '../core/Shared/helper/UserProfile.js'
 import type { AuthParams as GithubAuthParams } from '../core/Shared/AuthParams.types.js'
+import { refreshToken } from '../core/Shared/helper/RefreshToken.js'
+
 
 /**
  * GitHub OAuth 2.0 Provider implementation.
@@ -80,6 +82,22 @@ class GithubProvider extends BaseProviderClass {
         const data = await getUserProfile(accessToken, GithubConstants.UserProfile , 'Github')
         console.log(data);        
         return data
+    }
+    async refreshAccessToken(refreshTokenValue: string): Promise<TokenRefresh> {
+        try {
+            if(!refreshTokenValue){
+                throw new Error("No refreshtoken is provided!")
+            }
+            const response = await refreshToken(
+                refreshTokenValue,
+                this.clientId,
+                this.clientSecret,
+                GithubConstants.AccessTokenUrl as unknown as httpurl
+            )
+            return response
+        } catch (error) {
+            throw new Error("Error occured while refreshing the token in github provider", {cause: error})
+        }
     }
 }
 
