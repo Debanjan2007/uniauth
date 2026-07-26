@@ -2,12 +2,10 @@ import axios from 'axios'
 import { BaseProviderClass } from '../core/BaseClass.js'
 import { generateCodeVerifier as generateState } from '../../pkce/generateCodeVerifier.js'
 import { LinkedinConstants } from './linkedin.constants.js'
-import type { TokenResponse } from '../core/types/TokenResponse.types.js';
-import type { UserProfile } from '../core/types/UserProfile.types.js';
+import type { TokenRefresh, TokenResponse, UserProfile } from '../../index.types.js'
 import type { httpurl, AuthParams as LinkedinAuthParams } from '../core/Shared/AuthParams.types.js'
 import { getUserProfile } from '../core/Shared/helper/UserProfile.js';
 import { refreshToken } from "../core/Shared/helper/RefreshToken.js"
-import type { TokenRefresh } from "../core/types/RefreshToken.types.js"
 
 /**
  * LinkedIn OAuth 2.0 Provider implementation.
