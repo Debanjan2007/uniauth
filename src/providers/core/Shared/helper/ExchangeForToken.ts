@@ -23,11 +23,13 @@ const ExchangeCodeforToken = async (clientId: string , redirectUrl: httpurl  , c
                 undefined,
                 {
                     headers: {
-                        "Content-Type": "application/x-www-form-urlencoded"
+                        "Content-Type": "application/x-www-form-urlencoded",
+                        "Accept": "application/json"
                     }
                 }
             )
-
+            console.log("Data is: ",data); 
+            console.log("Data type is: ", typeof(data));                       
             const { access_token, expires_in, refresh_token, scope, token_type, id_token } = data
             return {
                 accessToken: access_token,

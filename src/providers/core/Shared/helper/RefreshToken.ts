@@ -15,7 +15,8 @@ async function refreshToken(refreshtoken: string, clientId: string, clientSecret
             new URLSearchParams(payload),
             {
                 headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "Accept": "application/json"
                 }
             }
         )
