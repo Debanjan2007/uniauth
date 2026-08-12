@@ -1,8 +1,10 @@
 import { LinkedinProvider } from '../linkedin/LinkedinProvider.js'
 import { GoogleProvider } from '../google/GoogleProvider.js'
 import { GithubProvider } from '../Github/GithubProviders.js'
+// import { InstagramProvider } from '../instagram/InstagramProvide.js'
 import type { UniauthConfig } from './types/UniauthConfig.types.js'
 import { BaseProviderClass } from "./BaseClass.js"
+import { InstagramProvider } from '../instagram/InstagramProvider.js'
 /**
  * The main entry point for the Uniauth library.
  * Manages configuration and instantiation of various OAuth providers.
@@ -43,6 +45,12 @@ export class Uniauth {
                 new GithubProvider(config.providers.github)
             )
         }
+        if (config.providers?.instagram) {
+            this.providers.set(
+                'instagram',
+                new InstagramProvider(config.providers.instagram)
+            )
+        }       
     }
 
     /**
