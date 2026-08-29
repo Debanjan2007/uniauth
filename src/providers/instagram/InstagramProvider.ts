@@ -6,7 +6,10 @@ import { getUserProfile } from '../core/Shared/helper/UserProfile.js';
 import { InstagramConstants } from './Instagram.constants.js';
 import { generateCodeVerifier as generateState } from '../../pkce/generateCodeVerifier.js'
 
-
+/**
+ * WARNING: Instagram provider is currently under development and not ready for use.
+ * It has not been tested with a legitimate domain. Use at your own risk.
+ */
 class InstagramProvider extends BaseProviderClass {
     private clientId: string
     private clientSecret: string
