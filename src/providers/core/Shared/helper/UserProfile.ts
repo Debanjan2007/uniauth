@@ -1,7 +1,7 @@
 ﻿import axios from "axios";
 import type { UserProfile } from "../../types/UserProfile.types.js";
 
-const getUserProfile = async(accessToken: string , UserProfileUrl: string , provider: 'Google' | 'Likedin' | 'Github'): Promise<UserProfile> => {
+const getUserProfile = async(accessToken: string , UserProfileUrl: string , provider: 'Google' | 'Likedin' | 'Github' | 'Instagram'): Promise<UserProfile> => {
     try {
             const { data } = await axios.get<{
             email?: string;

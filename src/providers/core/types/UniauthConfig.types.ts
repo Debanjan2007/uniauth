@@ -12,5 +12,7 @@ export interface UniauthConfig {
         google?: AuthParams
         /** Authentication parameters for the GitHub provider. */
         github?: AuthParams
+        /** Authentication parameters for the Instagram provider. */
+        instagram?: AuthParams
     }
 }

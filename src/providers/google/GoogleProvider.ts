@@ -63,7 +63,6 @@ export class GoogleProvider extends BaseProviderClass {
             throw new Error('Key is expected')
         }
         const response = await ExchangeCodeforToken(this.clientId, this.redirectUrl as httpurl, this.clientSecret, this.scope, code, key, GoogleConstants.AccessTokenUrl)
-        console.log(response);
         return response
     }
 
@@ -76,7 +75,6 @@ export class GoogleProvider extends BaseProviderClass {
      */
     async getUserProfile(accessToken: string): Promise<UserProfile> {
         const data = await getUserProfile(accessToken, GoogleConstants.UserProfile, "Google")
-        console.log(data);
         return data
     }
     async refreshAccessToken(refreshTokenValue: string): Promise<TokenRefresh> {
