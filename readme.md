@@ -145,7 +145,7 @@ const user = await github.getUserProfile(token.accessToken);
 
 ### LinkedIn (Standard OAuth)
 
-LinkedIn does not require PKCE, so you don't need to use `ExtractKey` or pass a key during the token exchange. Linkedin uses 3-legged OAuth flow with refresh token support.
+LinkedIn does not require PKCE, so you don't need to use `ExtractKey` or pass a key during the token exchange. Linkedin uses 3-legged OAuth flow with refresh token support
 
 ```ts
 const linkedin = auth.getProvider('linkedin');
