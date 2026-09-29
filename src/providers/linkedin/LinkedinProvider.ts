@@ -7,6 +7,17 @@ import type { httpurl, AuthParams as LinkedinAuthParams } from '../core/Shared/A
 import { getUserProfile } from '../core/Shared/helper/UserProfile.js';
 import { refreshToken } from "../core/Shared/helper/RefreshToken.js"
 
+export interface LinkedinTokenResponse extends TokenResponse {
+    userInfo: {
+        sub: string
+        name: string
+        given_name: string
+        family_name: string
+        email: string
+        picture: string
+    }
+}
+
 /**
  * LinkedIn OAuth 2.0 Provider implementation.
  * Supports standard authorization code flow with state parameter.
@@ -22,6 +33,7 @@ import { refreshToken } from "../core/Shared/helper/RefreshToken.js"
  * });
  * ```
  */
+
 export class LinkedinProvider extends BaseProviderClass {
     private clientId: string
     private clientSecret: string
@@ -45,10 +57,10 @@ export class LinkedinProvider extends BaseProviderClass {
      * LinkedIn uses standard flow, so no PKCE key is needed.
      * 
      * @param {string} code - The authorization code received from LinkedIn.
-     * @returns {Promise<TokenResponse>} A promise that resolves to the LinkedIn token response.
+     * @returns {Promise<LinkedinTokenResponse>} A promise that resolves to the LinkedIn token response.
      * @throws {Error} If token exchange fails.
      */
-    async exchangeCodeForToken(code: string): Promise<TokenResponse> {
+    async exchangeCodeForToken(code: string): Promise<LinkedinTokenResponse> {
         try {
             const url = LinkedinConstants.AccessTokenUrl + '?' + new URLSearchParams({
                 grant_type: 'authorization_code',
@@ -57,7 +69,6 @@ export class LinkedinProvider extends BaseProviderClass {
                 client_id: this.clientId,
                 client_secret: this.clientSecret,
             })
-
             const { data } = await axios.post<{ access_token: string; expires_in: number; refresh_token?: string; scope?: string; token_type: string; id_token?: string }>(
                 url,
                 undefined,
@@ -68,14 +79,29 @@ export class LinkedinProvider extends BaseProviderClass {
                 }
             )
             const { access_token, expires_in, refresh_token, scope, token_type, id_token } = data
-            const response: TokenResponse = {
+            /**
+            * Fetch user info from LinkedIn using the access token.
+            * This is necessary to populate the userInfo field in the token response.
+            * 
+            * @returns {Promise<LinkedinTokenResponse>} The complete token response including user info.
+            * @params {string} userInfor.sub - The unique identifier for the user. It can use for the user identification using linkedin URN like - `urn:li:person:${response.userInfo.sub}`.
+            * @params {string} userInfor.name - The full name of the user.
+            * @params {string} userInfor.given_name - The given name of the user.
+            **/
+            const userinfo = await axios.get('https://api.linkedin.com/v2/userinfo', {
+                headers: {
+                    Authorization: `Bearer ${access_token}`,
+                }
+            })
+            const response: LinkedinTokenResponse = {
                 accessToken: access_token,
                 refreshToken: refresh_token,
                 expiresIn: expires_in,
                 idToken: id_token,
                 scope: scope,
                 tokenType: token_type,
-                raw: data
+                raw: data,
+                userInfo: userinfo.data,
             }
 
             return response
