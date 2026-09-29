@@ -145,7 +145,7 @@ const user = await github.getUserProfile(token.accessToken);
 
 ### LinkedIn (Standard OAuth)
 
-LinkedIn does not require PKCE, so you don't need to use `ExtractKey` or pass a key during the token exchange.
+LinkedIn does not require PKCE, so you don't need to use `ExtractKey` or pass a key during the token exchange. Linkedin uses 3-legged OAuth flow with refresh token support
 
 ```ts
 const linkedin = auth.getProvider('linkedin');
@@ -157,7 +157,13 @@ const authUrl = linkedin.getAuthorizationUrl();
 // Handle Callback
 const token = await linkedin.exchangeCodeForToken(code);
 const user = await linkedin.getUserProfile(token.accessToken);
+
+// LinkedIn's token response includes userInfo from the userinfo endpoint.
+// Use `sub` to construct the member URN when a LinkedIn API requires it.
+const linkedInUrn = `urn:li:person:${token.userInfo.sub}`;
 ```
+
+`token.userInfo` contains LinkedIn's `sub`, `name`, `given_name`, `family_name`, `email`, and `picture` fields. The LinkedIn-specific `sub` value can be used to construct a person URN in the form `urn:li:person:${token.userInfo.sub}`.
 
 ## Architecture Overview
 
